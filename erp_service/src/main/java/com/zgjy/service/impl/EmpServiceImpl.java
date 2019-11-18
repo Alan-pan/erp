@@ -24,8 +24,6 @@ public class EmpServiceImpl implements EmpService {
     @Override
     public Pager<Emp> queryByExample(int pageNum, int pageSize, Emp emp) {
         System.out.println(emp);
-        //开启分页查询
-        Page<Object> pages = PageHelper.startPage(pageNum, pageSize);
         EmpExample empExample = new EmpExample();
         //是否开启条件查询
         EmpExample.Criteria criteria = empExample.createCriteria();
@@ -45,6 +43,8 @@ public class EmpServiceImpl implements EmpService {
         }else{
             empExample = null;
         }
+        //开启分页查询 下一行必须是对应的查询语句否则失效
+        Page<Object> pages = PageHelper.startPage(pageNum, pageSize);
         //条件查询
         List<Emp> lists = empMapper.selectByExample(empExample);
         Pager<Emp> emps=new Pager<>();
