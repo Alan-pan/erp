@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zgjy.mapper.OrdersMapper">
+  <resultMap id="BaseResultMap" type="com.zgjy.entity.Orders">
+    <id column="oid" jdbcType="INTEGER" property="oid" />
+    <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="checktime" jdbcType="TIMESTAMP" property="checktime" />
+    <result column="starttime" jdbcType="TIMESTAMP" property="starttime" />
+    <result column="endtime" jdbcType="TIMESTAMP" property="endtime" />
+    <result column="type" jdbcType="CHAR" property="type" />
+    <result column="creater" jdbcType="INTEGER" property="creater" />
+    <result column="createrName" jdbcType="VARCHAR" property="creatername" />
+    <result column="checker" jdbcType="INTEGER" property="checker" />
+    <result column="checkerName" jdbcType="VARCHAR" property="checkername" />
+    <result column="starter" jdbcType="INTEGER" property="starter" />
+    <result column="starterName" jdbcType="VARCHAR" property="startername" />
+    <result column="ender" jdbcType="INTEGER" property="ender" />
+    <result column="enderName" jdbcType="VARCHAR" property="endername" />
+    <result column="supplier" jdbcType="INTEGER" property="supplier" />
+    <result column="supplierName" jdbcType="VARCHAR" property="suppliername" />
+    <result column="totalmoney" jdbcType="DECIMAL" property="totalmoney" />
+    <result column="state" jdbcType="INTEGER" property="state" />
+    <result column="waybillsno" jdbcType="INTEGER" property="waybillsno" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    oid, createtime, checktime, starttime, endtime, type, creater, createrName, checker, 
+    checkerName, starter, starterName, ender, enderName, supplier, supplierName, totalmoney, 
+    state, waybillsno
+  </sql>
+  <select id="selectByExample" parameterType="com.zgjy.entity.OrdersExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from t_order
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_order
+    where oid = #{oid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_order
+    where oid = #{oid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zgjy.entity.Orders">
+    insert into t_order (oid, createtime, checktime, 
+      starttime, endtime, type, 
+      creater, createrName, checker, 
+      checkerName, starter, starterName, 
+      ender, enderName, supplier, 
+      supplierName, totalmoney, state, 
+      waybillsno)
+    values (#{oid,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP}, #{checktime,jdbcType=TIMESTAMP}, 
+      #{starttime,jdbcType=TIMESTAMP}, #{endtime,jdbcType=TIMESTAMP}, #{type,jdbcType=CHAR}, 
+      #{creater,jdbcType=INTEGER}, #{creatername,jdbcType=VARCHAR}, #{checker,jdbcType=INTEGER}, 
+      #{checkername,jdbcType=VARCHAR}, #{starter,jdbcType=INTEGER}, #{startername,jdbcType=VARCHAR}, 
+      #{ender,jdbcType=INTEGER}, #{endername,jdbcType=VARCHAR}, #{supplier,jdbcType=INTEGER}, 
+      #{suppliername,jdbcType=VARCHAR}, #{totalmoney,jdbcType=DECIMAL}, #{state,jdbcType=INTEGER}, 
+      #{waybillsno,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zgjy.entity.Orders">
+    insert into t_order
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="oid != null">
+        oid,
+      </if>
+      <if test="createtime != null">
+        createtime,
+      </if>
+      <if test="checktime != null">
+        checktime,
+      </if>
+      <if test="starttime != null">
+        starttime,
+      </if>
+      <if test="endtime != null">
+        endtime,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="creater != null">
+        creater,
+      </if>
+      <if test="creatername != null">
+        createrName,
+      </if>
+      <if test="checker != null">
+        checker,
+      </if>
+      <if test="checkername != null">
+        checkerName,
+      </if>
+      <if test="starter != null">
+        starter,
+      </if>
+      <if test="startername != null">
+        starterName,
+      </if>
+      <if test="ender != null">
+        ender,
+      </if>
+      <if test="endername != null">
+        enderName,
+      </if>
+      <if test="supplier != null">
+        supplier,
+      </if>
+      <if test="suppliername != null">
+        supplierName,
+      </if>
+      <if test="totalmoney != null">
+        totalmoney,
+      </if>
+      <if test="state != null">
+        state,
+      </if>
+      <if test="waybillsno != null">
+        waybillsno,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="oid != null">
+        #{oid,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="checktime != null">
+        #{checktime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="starttime != null">
+        #{starttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endtime != null">
+        #{endtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=CHAR},
+      </if>
+      <if test="creater != null">
+        #{creater,jdbcType=INTEGER},
+      </if>
+      <if test="creatername != null">
+        #{creatername,jdbcType=VARCHAR},
+      </if>
+      <if test="checker != null">
+        #{checker,jdbcType=INTEGER},
+      </if>
+      <if test="checkername != null">
+        #{checkername,jdbcType=VARCHAR},
+      </if>
+      <if test="starter != null">
+        #{starter,jdbcType=INTEGER},
+      </if>
+      <if test="startername != null">
+        #{startername,jdbcType=VARCHAR},
+      </if>
+      <if test="ender != null">
+        #{ender,jdbcType=INTEGER},
+      </if>
+      <if test="endername != null">
+        #{endername,jdbcType=VARCHAR},
+      </if>
+      <if test="supplier != null">
+        #{supplier,jdbcType=INTEGER},
+      </if>
+      <if test="suppliername != null">
+        #{suppliername,jdbcType=VARCHAR},
+      </if>
+      <if test="totalmoney != null">
+        #{totalmoney,jdbcType=DECIMAL},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="waybillsno != null">
+        #{waybillsno,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zgjy.entity.OrdersExample" resultType="java.lang.Long">
+    select count(*) from t_order
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zgjy.entity.Orders">
+    update t_order
+    <set>
+      <if test="createtime != null">
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="checktime != null">
+        checktime = #{checktime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="starttime != null">
+        starttime = #{starttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endtime != null">
+        endtime = #{endtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=CHAR},
+      </if>
+      <if test="creater != null">
+        creater = #{creater,jdbcType=INTEGER},
+      </if>
+      <if test="creatername != null">
+        createrName = #{creatername,jdbcType=VARCHAR},
+      </if>
+      <if test="checker != null">
+        checker = #{checker,jdbcType=INTEGER},
+      </if>
+      <if test="checkername != null">
+        checkerName = #{checkername,jdbcType=VARCHAR},
+      </if>
+      <if test="starter != null">
+        starter = #{starter,jdbcType=INTEGER},
+      </if>
+      <if test="startername != null">
+        starterName = #{startername,jdbcType=VARCHAR},
+      </if>
+      <if test="ender != null">
+        ender = #{ender,jdbcType=INTEGER},
+      </if>
+      <if test="endername != null">
+        enderName = #{endername,jdbcType=VARCHAR},
+      </if>
+      <if test="supplier != null">
+        supplier = #{supplier,jdbcType=INTEGER},
+      </if>
+      <if test="suppliername != null">
+        supplierName = #{suppliername,jdbcType=VARCHAR},
+      </if>
+      <if test="totalmoney != null">
+        totalmoney = #{totalmoney,jdbcType=DECIMAL},
+      </if>
+      <if test="state != null">
+        state = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="waybillsno != null">
+        waybillsno = #{waybillsno,jdbcType=INTEGER},
+      </if>
+    </set>
+    where oid = #{oid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zgjy.entity.Orders">
+    update t_order
+    set createtime = #{createtime,jdbcType=TIMESTAMP},
+      checktime = #{checktime,jdbcType=TIMESTAMP},
+      starttime = #{starttime,jdbcType=TIMESTAMP},
+      endtime = #{endtime,jdbcType=TIMESTAMP},
+      type = #{type,jdbcType=CHAR},
+      creater = #{creater,jdbcType=INTEGER},
+      createrName = #{creatername,jdbcType=VARCHAR},
+      checker = #{checker,jdbcType=INTEGER},
+      checkerName = #{checkername,jdbcType=VARCHAR},
+      starter = #{starter,jdbcType=INTEGER},
+      starterName = #{startername,jdbcType=VARCHAR},
+      ender = #{ender,jdbcType=INTEGER},
+      enderName = #{endername,jdbcType=VARCHAR},
+      supplier = #{supplier,jdbcType=INTEGER},
+      supplierName = #{suppliername,jdbcType=VARCHAR},
+      totalmoney = #{totalmoney,jdbcType=DECIMAL},
+      state = #{state,jdbcType=INTEGER},
+      waybillsno = #{waybillsno,jdbcType=INTEGER}
+    where oid = #{oid,jdbcType=INTEGER}
+  </update>
+</mapper>

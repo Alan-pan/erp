@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zgjy.mapper.GoodsMapper">
+  <resultMap id="BaseResultMap" type="com.zgjy.entity.Goods">
+    <id column="gid" jdbcType="INTEGER" property="gid" />
+    <result column="gname" jdbcType="VARCHAR" property="gname" />
+    <result column="origin" jdbcType="VARCHAR" property="origin" />
+    <result column="producter" jdbcType="VARCHAR" property="producter" />
+    <result column="unit" jdbcType="VARCHAR" property="unit" />
+    <result column="inprice" jdbcType="DECIMAL" property="inprice" />
+    <result column="outprice" jdbcType="DECIMAL" property="outprice" />
+    <result column="gcid" jdbcType="INTEGER" property="gcid" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    gid, gname, origin, producter, unit, inprice, outprice, gcid
+  </sql>
+  <select id="selectByExample" parameterType="com.zgjy.entity.GoodsExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from t_goods
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_goods
+    where gid = #{gid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_goods
+    where gid = #{gid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zgjy.entity.Goods">
+    insert into t_goods (gid, gname, origin, 
+      producter, unit, inprice, 
+      outprice, gcid)
+    values (#{gid,jdbcType=INTEGER}, #{gname,jdbcType=VARCHAR}, #{origin,jdbcType=VARCHAR}, 
+      #{producter,jdbcType=VARCHAR}, #{unit,jdbcType=VARCHAR}, #{inprice,jdbcType=DECIMAL}, 
+      #{outprice,jdbcType=DECIMAL}, #{gcid,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zgjy.entity.Goods">
+    insert into t_goods
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="gid != null">
+        gid,
+      </if>
+      <if test="gname != null">
+        gname,
+      </if>
+      <if test="origin != null">
+        origin,
+      </if>
+      <if test="producter != null">
+        producter,
+      </if>
+      <if test="unit != null">
+        unit,
+      </if>
+      <if test="inprice != null">
+        inprice,
+      </if>
+      <if test="outprice != null">
+        outprice,
+      </if>
+      <if test="gcid != null">
+        gcid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="gid != null">
+        #{gid,jdbcType=INTEGER},
+      </if>
+      <if test="gname != null">
+        #{gname,jdbcType=VARCHAR},
+      </if>
+      <if test="origin != null">
+        #{origin,jdbcType=VARCHAR},
+      </if>
+      <if test="producter != null">
+        #{producter,jdbcType=VARCHAR},
+      </if>
+      <if test="unit != null">
+        #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="inprice != null">
+        #{inprice,jdbcType=DECIMAL},
+      </if>
+      <if test="outprice != null">
+        #{outprice,jdbcType=DECIMAL},
+      </if>
+      <if test="gcid != null">
+        #{gcid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zgjy.entity.GoodsExample" resultType="java.lang.Long">
+    select count(*) from t_goods
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zgjy.entity.Goods">
+    update t_goods
+    <set>
+      <if test="gname != null">
+        gname = #{gname,jdbcType=VARCHAR},
+      </if>
+      <if test="origin != null">
+        origin = #{origin,jdbcType=VARCHAR},
+      </if>
+      <if test="producter != null">
+        producter = #{producter,jdbcType=VARCHAR},
+      </if>
+      <if test="unit != null">
+        unit = #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="inprice != null">
+        inprice = #{inprice,jdbcType=DECIMAL},
+      </if>
+      <if test="outprice != null">
+        outprice = #{outprice,jdbcType=DECIMAL},
+      </if>
+      <if test="gcid != null">
+        gcid = #{gcid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where gid = #{gid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zgjy.entity.Goods">
+    update t_goods
+    set gname = #{gname,jdbcType=VARCHAR},
+      origin = #{origin,jdbcType=VARCHAR},
+      producter = #{producter,jdbcType=VARCHAR},
+      unit = #{unit,jdbcType=VARCHAR},
+      inprice = #{inprice,jdbcType=DECIMAL},
+      outprice = #{outprice,jdbcType=DECIMAL},
+      gcid = #{gcid,jdbcType=INTEGER}
+    where gid = #{gid,jdbcType=INTEGER}
+  </update>
+</mapper>
