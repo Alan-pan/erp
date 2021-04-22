@@ -21,7 +21,7 @@
         <pager.version>5.0.0</pager.version>
         <fastjson.version>1.2.54</fastjson.version>
         <formvalidte.version>5.4.1.Final</formvalidte.version>
-        <mybatis.version>3.4.6</mybatis.version>
+        <mybatis.version>3.5.6</mybatis.version>
         <druid.version>1.1.12</druid.version>
         <mysql.version>5.1.41</mysql.version>
         <jstl.version>1.2</jstl.version>
