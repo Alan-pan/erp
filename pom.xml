@@ -17,7 +17,7 @@
 
     <properties>
         <!--指定spring的版本-->
-        <spring.version>4.3.19.RELEASE</spring.version>
+        <spring.version>5.2.20.RELEASE</spring.version>
         <pager.version>5.0.0</pager.version>
         <fastjson.version>1.2.54</fastjson.version>
         <formvalidte.version>5.4.1.Final</formvalidte.version>
